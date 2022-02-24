@@ -1,3 +1,7 @@
+import Lexer as L
+
+
+
 
 name = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"
 "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
@@ -10,7 +14,7 @@ O = [":north",":south",":east",":west"]
 
 D2 = [":front",":right",":left",":back"]
 
-
+ListaPalabras = L.CrearLista(L.content)
 
 
 listaComandos = []
@@ -39,33 +43,14 @@ listaComandos.append("not")
 listaComandos.append("rotate")
 
 
-
-
-def comprobarParentesis(string: list)->bool:
-    condicion = False
-    comandos = listaComandos
-    i = 0
-    conteo = 0
-    tamString = len(string)
-    while i <= tamString - 1:
-        if string(i) == comandos[0]:
-            conteo = conteo +1
-        elif string(i) == comandos[1]:
-            conteo = conteo -1
-        i = i + 1
-    if conteo == 0:
-        condicion = True
-    return condicion
-
-
-def eliminarParentesis(string: list)->list:
-    nL1 = string.remove("(")
+def eliminarParentesis(ListaPalabras: list)->list:
+    nL1 = ListaPalabras.remove("(")
     nL2 = nL1.remove(")")
     return nL2
 
-def comprobarDefvar (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarDefvar (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(ListaPalabras)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     defVar = listaComandos(2)
     name = listaComandos(3)
@@ -77,12 +62,16 @@ def comprobarDefvar (string: list)->bool:
         if nuevoString(1) == name:
             if nuevoString(2) == nCondicion:
                 condicion = True
-    return (condicion and parentesis)
+    rta = False
+    if (condicion and parentesis):
+        rta = True 
+    return rta
 
-def comprobarnameVar (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarnameVar (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(ListaPalabras)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
+    igual = "="
     name = listaComandos(3)
     nCondicion = (n[0] or n[1] or n[2] or n[3] or n[4] or n[5] or n[6] or n[7] or n[8] or n[9])
     tamString = len(nuevoString)
@@ -95,9 +84,9 @@ def comprobarnameVar (string: list)->bool:
     return (condicion and parentesis)
 
 
-def comprobarMove (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarMove (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(ListaPalabras)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     move = listaComandos(4)
     nCondicion = (n[0] or n[1] or n[2] or n[3] or n[4] or n[5] or n[6] or n[7] or n[8] or n[9])
@@ -110,9 +99,9 @@ def comprobarMove (string: list)->bool:
     return (condicion and parentesis)
 
 
-def comprobarTurn (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarTurn (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(ListaPalabras)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     turn = listaComandos(5)
     dCondicion = (D[0] or D[1] or D[2])
@@ -124,9 +113,9 @@ def comprobarTurn (string: list)->bool:
                 condicion = True
     return (condicion and parentesis)
 
-def comprobarFace (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarFace (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(ListaPalabras)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     face = listaComandos(6)
     oCondicion = (O[0] or O[1] or O[2] or O[3])
@@ -138,9 +127,9 @@ def comprobarFace (string: list)->bool:
                 condicion = True
     return (condicion and parentesis)
 
-def comprobarPut (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarPut (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(ListaPalabras)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     put = listaComandos(7)
     balloons = "Balloons"
@@ -156,9 +145,9 @@ def comprobarPut (string: list)->bool:
                 condicion = True
     return (condicion and parentesis)
 
-def comprobarPick (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarPick (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(ListaPalabras)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     pick = listaComandos(8)
     balloons = "Balloons"
@@ -174,9 +163,9 @@ def comprobarPick (string: list)->bool:
                 condicion = True
     return (condicion and parentesis)
 
-def comprobarMoveDir (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarMoveDir (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(L.content)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     moveDir = listaComandos(9)
     balloons = "Balloons"
@@ -192,9 +181,9 @@ def comprobarMoveDir (string: list)->bool:
                 condicion = True
     return (condicion and parentesis)
 
-def comprobarRunDirs (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarRunDirs (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(L.content)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     runDir = listaComandos(10)
     dCondicion = D2[0] or D2[1] or D2[2] or D2[3]
@@ -206,9 +195,9 @@ def comprobarRunDirs (string: list)->bool:
             condicion = True
     return (condicion and parentesis)
 
-def comprobarMoveFace (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarMoveFace (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(L.content)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     moveFace = listaComandos(11)
     nCondicion = (n[0] or n[1] or n[2] or n[3] or n[4] or n[5] or n[6] or n[7] or n[8] or n[9])
@@ -222,9 +211,9 @@ def comprobarMoveFace (string: list)->bool:
                 condicion = True
     return (condicion and parentesis)
 
-def comprobarSkip (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarSkip (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(L.content)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     skip = listaComandos(12)
     tamString = len(nuevoString)
@@ -234,9 +223,9 @@ def comprobarSkip (string: list)->bool:
         condicion = True
     return (condicion and parentesis)
 
-def comprobarFacing (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarFacing (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(L.content)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     facing = listaComandos[13]
     oCondicion = (O[0] or O[1] or O[2] or O[3])
@@ -248,9 +237,9 @@ def comprobarFacing (string: list)->bool:
             condicion = True
     return (condicion and parentesis)
 
-def comprobarCanPutP (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarCanPutP (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(L.content)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     canPutP = listaComandos(14)
     balloons = "Balloons"
@@ -267,9 +256,9 @@ def comprobarCanPutP (string: list)->bool:
     return (condicion and parentesis)
 
 
-def comprobarCanPickP (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarCanPickP (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(L.content)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     canPickP = listaComandos(15)
     balloons = "Balloons"
@@ -285,9 +274,9 @@ def comprobarCanPickP (string: list)->bool:
                 condicion = True
     return (condicion and parentesis)
 
-def comprobarCanMoveP (string: list)->bool:
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+def comprobarCanMoveP (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(L.content)
+    nuevoString = eliminarParentesis(ListaPalabras)
     condicion = False
     canMoveP = listaComandos(16)
     oCondicion = (O[0] or O[1] or O[2] or O[3])
@@ -299,49 +288,52 @@ def comprobarCanMoveP (string: list)->bool:
             condicion = True
     return (condicion and parentesis)
 
-def comprobarCondicion (string: list)->bool:
-    facing = comprobarFacing(string)
-    can_put = comprobarCanPutP(string)
-    can_pick = comprobarCanPickP(string)
-    can_move = comprobarCanMoveP(string)
+def comprobarCondicion (ListaPalabras: list)->bool:
+    facing = comprobarFacing(ListaPalabras)
+    can_put = comprobarCanPutP(ListaPalabras)
+    can_pick = comprobarCanPickP(ListaPalabras)
+    can_move = comprobarCanMoveP(ListaPalabras)
     condicionales = facing or can_put or can_pick or can_move
     return condicionales
 
-def comprobarNot (string: list)->bool:
-    parentesis = comprobarParentesis(string)
+def comprobarNot (ListaPalabras: list)->bool:
+    parentesis = L.comprobaciónParentesis(L.content)
     condicion = False
-    nuevoString = eliminarParentesis(string)
+    nuevoString = eliminarParentesis(ListaPalabras)
     tamString = len(nuevoString)
     notInstruccion = listaComandos[17]
     if (tamString != 2):
         condicion = False
     else:
         cumpleCondicion = comprobarCondicion(nuevoString(1))
-        if (string(0) == notInstruccion):
+        if (ListaPalabras(0) == notInstruccion):
             if cumpleCondicion:
                 condicion = True
     return(condicion and parentesis)
 
-def comprobarBloques (string:list)->bool:
-    defVar = comprobarDefvar(string)
-    name = comprobarnameVar(string)
-    move= comprobarMove(string)
-    turn = comprobarTurn(string)
-    face = comprobarFace(string)
-    put = comprobarPut(string)
-    pick = comprobarPick(string)
-    moveDir = comprobarMoveDir(string)
-    runDir = comprobarRunDirs(string)
-    moveFace = comprobarMoveFace(string)
-    skip = comprobarSkip(string)
+def comprobarBloques (ListaPalabras:list)->bool:
+    defVar = comprobarDefvar(ListaPalabras)
+    name = comprobarnameVar(ListaPalabras)
+    move= comprobarMove(ListaPalabras)
+    turn = comprobarTurn(ListaPalabras)
+    face = comprobarFace(ListaPalabras)
+    put = comprobarPut(ListaPalabras)
+    pick = comprobarPick(ListaPalabras)
+    moveDir = comprobarMoveDir(ListaPalabras)
+    runDir = comprobarRunDirs(ListaPalabras)
+    moveFace = comprobarMoveFace(ListaPalabras)
+    skip = comprobarSkip(ListaPalabras)
     condicion = defVar or name or move or turn or face or put or pick or moveDir or runDir or moveFace or skip
     return condicion
 
+bloques = comprobarBloques(ListaPalabras)
+print(bloques)
 
-def comprobarEstructuraCondicional(string: list)->bool:
+
+def comprobarEstructuraCondicional(ListaPalabras: list)->bool:
     condicion = False
-    parentesis = comprobarParentesis(string)
-    nuevoString = eliminarParentesis(string)
+    parentesis = L.comprobaciónParentesis(L.content)
+    nuevoString = eliminarParentesis(ListaPalabras)
     ifComando = "if"
     tamString = len(nuevoString)
     if (tamString != 4):
@@ -351,7 +343,7 @@ def comprobarEstructuraCondicional(string: list)->bool:
             if (comprobarCondicion(nuevoString(1)) or comprobarNot(nuevoString(1))):
                 if (comprobarBloques(nuevoString(2)) and comprobarBloques(nuevoString(3))):
                     condicion = True
-                return condicion
+                return condicion and parentesis
 
 
 

@@ -1,36 +1,44 @@
-archivo = open("hola.txt", "r", encoding= "UTF-8-sig")
-lineas = archivo.readlines()
-for x in lineas :
-    print (x)
+import string
+
+texto = "ejemplo.txt"
+with open(texto) as f:
+    content = f.read().replace('\n', ' ')
+        
+print(content)
+print(type(content))
 
 
-def CrearLista ( texto):
-    lista = list(string.split(" "))
+def CrearLista (content):
+    lista = content.split(" ")
     return lista
 
-def comprobaciónParentesis (texto):
-    lista = CrearLista(texto)
+ListaTexto = CrearLista(content)
+print(ListaTexto)
+
+
+def comprobaciónParentesis (content):
+    if type(content) is str:
+        lista = CrearLista(content)
+    else:
+        Lista = content
     Izquierdo = 0
     derecho = 0
-    lista = []
     for palabra in lista:
-        palabra = string(palabra)
-        listaPalabra = output=string.split('')
-        if "(" in palabra :  
-            for caracter in listaPalabra:
-                if caracter == "(":
-                    Izquierdo += 1
-        if palabra == ")":
-            for caracter in listaPalabra:
-                if caracter == ")":
-                    derecho += 1
+        listaPalabra = palabra.strip()
+        for caracter in listaPalabra:
+            if caracter == "(":
+                Izquierdo += 1
+        for caracter in listaPalabra:
+            if caracter == ")":
+                derecho += 1
     if Izquierdo == derecho:
         rta = True
     else:
         rta = False
     return rta
 
-
+comprobacion = comprobaciónParentesis(content)
+print (comprobacion)
 
 
 def CrearTokens ():
@@ -43,7 +51,7 @@ def CrearTokens ():
     token = {
         "(": 1,
         ")": 2,
-        "defvar":3
+        "defvar":3,
         "name" : 4,
         "move": 5,
         "turn": 6,
